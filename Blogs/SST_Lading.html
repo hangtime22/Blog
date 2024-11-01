@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>超前滞后分析</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        header, footer {
+            text-align: center;
+            padding: 10px;
+            background: #333;
+            color: white;
+        }
+        pre {
+            background: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: "Courier New", Courier, monospace;
+        }
+        .img-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .img-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>超前滞后分析 (Lead-Lag Analysis of SST Anomalies)</h1>
+    </header>
+    
+    <section>
+        <h2>简介 (Project Overview)</h2>
+        <p>对Nino-3.4与西太平洋区域的海表温度(SST)异常值进行超前滞后相关分析，以研究它们的时间关系及其对气候的影响。</p>
+        <p>This project conducts a lead-lag correlation analysis between the Nino-3.4 and West Pacific SST anomalies to study their temporal relationship and climate impact.</p>
+        <h3>示例文件</h3>
+        <a href="Dataset/sst_pacific_1979_2018.mat" download="sst_pacific_1979_2018.mat" style="text-decoration: none; color: #007BFF;">sst_pacific_1979_2018.mat</a>
+        <h3>MATLAB代码 (MATLAB Code)</h3>
+        <pre><code>
+            % 加载.mat文件 (Load .mat file)
+            data = load('sst_pacific_1979_2018.mat');
+        
+            SST = data.sst;
+            lat = data.lat;
+            lon = data.lon;
+            time = data.time;
+        
+            % 找到Nino-3.4区域的索引 (Find indices for Nino-3.4 region)
+            lat_indices = find(lat >= -5 & lat <= 5);
+            lon_indices = find(lon >= 190 & lon <= 240);
+        
+            % 提取Nino-3.4区域的SST数据 (Extract SST data for Nino-3.4 region)
+            nino34_sst = SST(lon_indices, lat_indices, :);
+            nino34_mean_sst = squeeze(mean(mean(nino34_sst, 1, 'omitnan'), 2, 'omitnan'));
+        
+            % 计算Nino-3.4的月平均气候态 (Calculate monthly climatology for Nino-3.4 SST)
+            climatology = mean(reshape(nino34_mean_sst, 12, []), 2);
+        
+            % 计算SST异常值 (Compute SST anomalies)
+            anomalies = nino34_mean_sst - repmat(climatology, numel(nino34_mean_sst) / 12, 1);
+        
+            % 设置滤波器 (Set up filter for smoothing)
+            cutoff_freq = 1/12; % 13个月低通滤波 (13-month low-pass filter)
+            order = 4;
+            [b, a] = butter(order, cutoff_freq);
+        
+            % 应用低通滤波器 (Apply low-pass filter)
+            filtered_anomalies = filtfilt(b, a, anomalies);
+        
+            % 绘制Nino-3.4的SST异常 (Plot Nino-3.4 SST anomalies)
+            figure;
+            plot(time, anomalies, 'b', 'DisplayName', 'SST Anomalies');
+            hold on;
+            plot(time, filtered_anomalies, 'r', 'LineWidth', 2, 'DisplayName', 'Filtered SST Anomalies');
+            title('Nino-3.4 Index (SST Anomalies)');
+            xlabel('Time');
+            ylabel('SST Anomalies');
+            legend;
+            grid on;
+            hold off;
+        
+            % 找到西太平洋区域的索引 (Find indices for West Pacific region)
+            lat_indices_west = find(lat >= -10 & lat <= 10);
+            lon_indices_west = find(lon >= 130 & lon <= 160);
+        
+            % 提取西太平洋区域的SST数据 (Extract SST data for West Pacific region)
+            west_pacific_sst = SST(lon_indices_west, lat_indices_west, :);
+            west_pacific_mean_sst = squeeze(mean(mean(west_pacific_sst, 1, 'omitnan'), 2, 'omitnan'));
+        
+            % 计算西太平洋的月平均气候态 (Calculate climatology for West Pacific SST)
+            climatology_west = mean(reshape(west_pacific_mean_sst, 12, []), 2);
+        
+            % 计算SST异常值 (Compute SST anomalies for West Pacific)
+            anomalies_west = west_pacific_mean_sst - repmat(climatology_west, numel(west_pacific_mean_sst) / 12, 1);
+        
+            % 应用低通滤波器 (Apply low-pass filter)
+            filtered_anomalies_west = filtfilt(b, a, anomalies_west);
+        
+            % 绘制西太平洋暖池的SST异常 (Plot SST anomalies for West Pacific Warm Pool)
+            figure;
+            plot(time, anomalies_west, 'g', 'DisplayName', 'SST Anomalies (West Pacific)');
+            hold on;
+            plot(time, filtered_anomalies_west, 'm', 'LineWidth', 2, 'DisplayName', 'Filtered SST Anomalies (West Pacific)');
+            title('West Pacific Warm Pool SST Anomalies');
+            xlabel('Time (years)');
+            ylabel('SST Anomalies (°C)');
+            legend;
+            grid on;
+            hold off;
+        
+            % 计算滞后相关系数 (Calculate lagged correlation coefficients)
+            max_lag = 12;
+            correlation_values = zeros(1, 2 * max_lag + 1);
+            lags = -max_lag:max_lag;
+        
+            for i = 1:length(lags)
+                lag = lags(i);
+                if lag < 0
+                    shifted_anomalies = anomalies(1:end+lag);
+                    shifted_anomalies_west = anomalies_west(-lag+1:end);
+                elseif lag > 0
+                    shifted_anomalies = anomalies(lag+1:end);
+                    shifted_anomalies_west = anomalies_west(1:end-lag);
+                else
+                    shifted_anomalies = anomalies;
+                    shifted_anomalies_west = anomalies_west;
+                end
+                correlation_values(i) = corr(shifted_anomalies, shifted_anomalies_west, 'rows', 'complete');
+            end
+        
+            % 绘制滞后相关系数与滞后时间的关系图 (Plot correlation vs lag time)
+            figure;
+            plot(lags, correlation_values, 'o-', 'Color', 'b');
+            title('Lagged Correlation between Nino-3.4 and West Pacific SST Anomalies');
+            xlabel('Lag Time (Months)');
+            ylabel('Correlation Coefficient');
+            grid on;
+            hold off;
+        </code></pre>        
+    </section>
+    
+    <!-- 图片容器 -->
+    <div class="img-container">
+        <img src="images/leading1.png" alt="Nino-3.4 Index (SST Anomalies)">
+        <img src="images/leading2.png" alt="West Pacific Warm Pool SST Anomalies">
+        <img src="images/leading3.png" alt="Lagged Correlation between Nino-3.4 and West Pacific SST Anomalies">
+        <p>  </p>
+    </div>
+
+
+    <footer>
+        <p>&copy; 2024 Lead-Lag Analysis Project</p>
+    </footer>
+</body>
+</html>
