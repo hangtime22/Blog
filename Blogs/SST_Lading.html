@@ -58,6 +58,9 @@
             lat = data.lat;
             lon = data.lon;
             time = data.time;
+
+            % 转换时间格式
+            time = datetime(num2str(data.time'), 'InputFormat', 'yyyyMM');
         
             % 找到Nino-3.4区域的索引 (Find indices for Nino-3.4 region)
             lat_indices = find(lat >= -5 & lat <= 5);
