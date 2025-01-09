@@ -4,78 +4,139 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KF-GINS 绘图扩展</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../style.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-            background-color: #f4f4f4;
-        }
-        header, footer {
-            text-align: center;
-            padding: 10px;
-            background: #333;
-            color: white;
-        }
-        pre {
-            background: #eee;
-            padding: 10px;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
-        code {
-            font-family: "Courier New", Courier, monospace;
-        }
-        .img-container {
-            text-align: center;
-            margin: 20px 0;
-        }
-        .img-container img {
-            max-width: 100%;
+        section {
             height: auto;
-            border-radius: 5px;
+            margin: 2rem 5rem;
+        }
+
+        .code-container {
+            background: rgb(250, 250, 250);
+            border-radius: 2rem;
+            border: rgb(163, 163, 163) 0.1rem solid;
+            padding: 2rem;
+            margin: 2rem 0;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        pre {
+            background: rgb(245, 245, 245);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            overflow-x: auto;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .img-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 2rem 0;
+        }
+
+        .img-container img {
+            max-width: 90%;
+            border-radius: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 1rem 0;
+        }
+
+        h2, h3 {
+            color: rgb(53, 53, 53);
+            margin: 1.5rem 0;
+        }
+
+        p {
+            margin: 1rem 0;
+            line-height: 1.6;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin: 1rem 0;
+            padding: 0.8rem 1.5rem;
+            background: rgb(53, 53, 53);
+            color: white;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 300ms ease;
+        }
+
+        .back-button:hover {
+            background: rgb(0, 0, 0);
+            text-decoration: none;
+        }
+
+        /* 自定义滚动条样式 */
+        .code-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .code-container::-webkit-scrollbar-track {
+            background: rgb(245, 245, 245);
+            border-radius: 4px;
+        }
+
+        .code-container::-webkit-scrollbar-thumb {
+            background: rgb(163, 163, 163);
+            border-radius: 4px;
+        }
+
+        .code-container::-webkit-scrollbar-thumb:hover {
+            background: rgb(130, 130, 130);
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>KF-GINS 绘图扩展</h1>
-    </header>
+    <nav id="desktop-nav">
+        <div class="logo">XXXC-HangTime</div>
+        <div>
+            <ul class="nav-links">
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#favorites">Favorites</a></li>
+                <li><a href="../index.html#projects">Projects</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
     
     <section>
-        <h2>简介 (Project Overview)</h2>
-        <p>KF-GINS 绘图扩展</p>
-        <!-- <p>This project conducts a lead-lag correlation analysis between the Nino-3.4 and West Pacific SST anomalies to study their temporal relationship and climate impact.</p> -->
-        <!--<h3>示例文件</h3>
-        <a href="Dataset/KF_GINS_IMU_ERR.txt" download="KF_GINS_IMU_ERR.txt" style="text-decoration: none; color: #007BFF;">KF_GINS_IMU_ERR.txt</a><br>
-        <a href="Dataset/KF_GINS_STD.txt" download="KF_GINS_STD.txt" style="text-decoration: none; color: #007BFF;">KF_GINS_STD.txt</a><br>
-        <a href="Dataset/KF_GINS_Navresult.nav" download="KF_GINS_Navresult.nav" style="text-decoration: none; color: #007BFF;">KF_GINS_Navresult.nav</a><br> -->
-        <h3>PYTHON代码 (Python Code)</h3>
-        <pre><code>
+        <a href="Geoindex.html" class="back-button">← 返回测绘技术</a>
+        
+        <h1 class="title">KF-GINS 绘图扩展</h1>
+        
+        <div class="code-container">
+            <h2>Python代码</h2>
+            <pre><code>
             import numpy as np
             import math as m
             import matplotlib.pyplot as plt
-        
+
             # WGS84参数
             WGS84_RA = 6378137.0
             WGS84_E1 = 0.00669437999013
             WGS84_WIE = 7.2921151467e-5
-        
+
             D2R = np.pi / 180.0
             R2D = 180.0 / np.pi
-        
+
             # 计算子午圈半径和卯酉圈半径
             # 输入参数: lat(纬度)[rad]
             def radiusmn(lat):
                 tmp = np.square(m.sin(lat))
                 tmp = 1 - WGS84_E1 * tmp
                 sqrttmp = np.sqrt(tmp)
-        
+
                 radm = WGS84_RA * (1 - WGS84_E1) / (sqrttmp * tmp)
                 radn = WGS84_RA / sqrttmp
                 return radm, radn
-        
+
             # 地理坐标系增量转成n系下坐标增量
             # 参数: rm, rn 子午圈半径和卯酉圈半径; pos当前位置地理位置[rad, rad, m], drad(地理坐标系相对增量)[rad, rad, m]
             # @param: return: dm, n系下增量
@@ -85,25 +146,25 @@
                 dm[1] = drad[1] * (rn + pos[2]) * m.cos(pos[0])
                 dm[2] = -drad[2]
                 return dm
-        
+
             def plotNavresult(navresult_filepath):
                 # np.loadtxt() 默认读取文本文件中的数值数据，每一行的数据被解析成一个数组的行。
                 navresult = np.loadtxt(navresult_filepath)
-        
+
                 # 小范围内将位置转到第一个位置确定的n系
                 pos = np.zeros([len(navresult), 4])
                 navresult[:, 2:4] = navresult[:, 2:4] * D2R
                 pos[:, 0] = navresult[:, 1]
-        
+
                 blh_station = navresult[0, 2:5]
                 rm, rn = radiusmn(blh_station[0])
-        
+
                 for i in range(len(pos)):
                     delta_blh = navresult[i, 2:5] - navresult[0, 2:5]
                     pos[i, 1:4] = drad2dm(rm, rn, blh_station, delta_blh).reshape(1, 3)
-        
+
                 print('plotting estimated navigation result!')
-        
+
                 # 绘图
                 plt.figure('horizontal position')
                 plt.plot(pos[:, 2], pos[:, 1])
@@ -113,7 +174,7 @@
                 plt.title('Horizontal Position')
                 plt.grid()
                 plt.tight_layout()
-        
+
                 plt.figure('height')
                 plt.plot(navresult[:, 1], navresult[:, 4])
                 plt.xlabel('Time [s]')
@@ -121,7 +182,7 @@
                 plt.title('Height')
                 plt.grid()
                 plt.tight_layout()
-        
+
                 plt.figure()
                 plt.plot(navresult[:, 1], navresult[:, 5:8])
                 plt.legend(['North', 'East', 'Down'])
@@ -130,7 +191,7 @@
                 plt.title('Velocity')
                 plt.grid()
                 plt.tight_layout()
-        
+
                 plt.figure()
                 plt.plot(navresult[:, 1], navresult[:, 8:11])
                 plt.legend(['Roll', 'Pitch', 'Yaw'])
@@ -139,13 +200,13 @@
                 plt.title('Attitude')
                 plt.grid()
                 plt.tight_layout()
-        
+
                 plt.show()
-        
+
             def plotIMUerror(imuerr_filepath):
                 imuerr = np.loadtxt(imuerr_filepath)
                 print('plotting estimated IMU error!')
-        
+
                 plt.figure('gyro bias')
                 plt.plot(imuerr[:, 0], imuerr[:, 1:4])
                 plt.legend(['X', 'Y', 'Z'])
@@ -154,7 +215,7 @@
                 plt.title('Gyroscope Bias')
                 plt.grid()
                 plt.tight_layout()
-        
+
                 plt.figure('accel bias')
                 plt.plot(imuerr[:, 0], imuerr[:, 4:7])
                 plt.legend(['X', 'Y', 'Z'])
@@ -163,7 +224,7 @@
                 plt.title('Accelerometer Bias')
                 plt.grid()
                 plt.tight_layout()
-        
+
                 plt.figure('gyro scale')
                 plt.plot(imuerr[:, 0], imuerr[:, 7:10])
                 plt.legend(['X', 'Y', 'Z'])
@@ -172,7 +233,7 @@
                 plt.title('Gyroscope Scale')
                 plt.grid()
                 plt.tight_layout()
-        
+
                 plt.figure('accel scale')
                 plt.plot(imuerr[:, 0], imuerr[:, 10:13])
                 plt.legend(['X', 'Y', 'Z'])
@@ -181,48 +242,13 @@
                 plt.title('Accelerometer Scale')
                 plt.grid()
                 plt.tight_layout()
-        
-                plt.show()
-        
-            def plotNavError(navresult_filepath, refresult_filepath):
-                naverror = calcNavresultError(navresult_filepath, refresult_filepath)
-                print('calculate mavigtion result error finished!')
-                print('plotting navigation error!')
-        
-                # 绘制误差曲线
-                plt.figure('position error')
-                plt.plot(naverror[:, 1], naverror[:, 2:5])
-                plt.legend(['North', 'East', 'Down'])
-                plt.xlabel('Time [s]')
-                plt.ylabel('Error [m]')
-                plt.title('Position Error')
-                plt.grid()
-                plt.tight_layout()
-        
-                plt.figure('velocity error')
-                plt.plot(naverror[:, 1], naverror[:, 5:8])
-                plt.legend(['North', 'East', 'Down'])
-                plt.xlabel('Time [s]')
-                plt.ylabel('Error [m/s]')
-                plt.title('Velocity Error')
-                plt.grid()
-                plt.tight_layout()
-        
-                plt.figure('attitude error')
-                plt.plot(naverror[:, 1], naverror[:, 8:11])
-                plt.legend(['Roll', 'Pitch', 'Yaw'])
-                plt.xlabel('Time [s]')
-                plt.ylabel('Error [deg]')
-                plt.title('Attitude Error')
-                plt.grid()
-                plt.tight_layout()
-        
-                plt.show()
-                def plotSTD(std_filepath):
 
+                plt.show()
+
+            def plotSTD(std_filepath):
                 std = np.loadtxt(std_filepath)
                 print('plotting estimated STD!')
-            
+
                 plt.figure('position std')
                 plt.plot(std[:, 0], std[:, 1:4])
                 plt.legend(['North', 'East', 'Down'])
@@ -231,7 +257,7 @@
                 plt.title('Position STD')
                 plt.grid()
                 plt.tight_layout()
-            
+
                 plt.figure('velocity std')
                 plt.plot(std[:, 0], std[:, 4:7])
                 plt.legend(['North', 'East', 'Down'])
@@ -240,7 +266,7 @@
                 plt.title('Velocity STD')
                 plt.grid()
                 plt.tight_layout()
-            
+
                 plt.figure('attitude std')
                 plt.plot(std[:, 0], std[:, 7:10])
                 plt.legend(['Roll', 'Pitch', 'Yaw'])
@@ -249,7 +275,7 @@
                 plt.title('Attitude STD')
                 plt.grid()
                 plt.tight_layout()
-            
+
                 plt.figure('gyrobias std')
                 plt.plot(std[:, 0], std[:, 10:13])
                 plt.legend(['X', 'Y', 'Z'])
@@ -258,7 +284,7 @@
                 plt.title('Gyroscope Bias STD')
                 plt.grid()
                 plt.tight_layout()
-            
+
                 plt.figure('accelbias std')
                 plt.plot(std[:, 0], std[:, 13:16])
                 plt.legend(['X', 'Y', 'Z'])
@@ -267,7 +293,7 @@
                 plt.title('Accelerometer Bias STD')
                 plt.grid()
                 plt.tight_layout()
-            
+
                 plt.figure('gyroscale std')
                 plt.plot(std[:, 0], std[:, 16:19])
                 plt.legend(['X', 'Y', 'Z'])
@@ -276,7 +302,7 @@
                 plt.title('Gyroscope Scale STD')
                 plt.grid()
                 plt.tight_layout()
-            
+
                 plt.figure('accelscale std')
                 plt.plot(std[:, 0], std[:, 19:22])
                 plt.legend(['X', 'Y', 'Z'])
@@ -285,65 +311,10 @@
                 plt.title('Accelerometer Scale STD')
                 plt.grid()
                 plt.tight_layout()
-            
+
                 plt.show()
-            
-            
-            def calcNavresultError(navresult_filepath, refresult_filepath):
-            
-                navresult = np.loadtxt(navresult_filepath)
-                refresult = np.loadtxt(refresult_filepath)
-            
-                # 航向角平滑
-                for i in range(1, len(navresult)):
-                    if navresult[i, 10] - navresult[i - 1, 10] < -180:
-                        navresult[i:, 10] = navresult[i:, 10] + 360
-                    if navresult[i, 10] - navresult[i - 1, 10] > 180:
-                        navresult[i:, 10] = navresult[i:, 10] - 360
-            
-                for i in range(1, len(refresult)):
-                    if refresult[i, 10] - refresult[i - 1, 10] < -180:
-                        refresult[i:, 10] = refresult[i:, 10] + 360
-                    if refresult[i, 10] - refresult[i - 1, 10] > 180:
-                        refresult[i:, 10] = refresult[i:, 10] - 360
-            
-                # 找到数据重合部分，参考结果内插到测试结果
-                start_time = refresult[0, 1] if refresult[0, 1] >= navresult [0, 1] else navresult [0, 1]
-                end_time = refresult[-1, 1] if refresult[-1, 1] <= navresult [-1, 1] else navresult [-1, 1]
-                start_index = np.argwhere(navresult[:, 1] >= start_time)[0, 0]
-                end_index = np.argwhere(navresult[:, 1] <= end_time)[-1, 0]
-                navresult = navresult[start_index:end_index, :]
-                navresult[:, 2:4] = navresult[:, 2:4] * D2R
-                refresult[:, 2:4] = refresult[:, 2:4] * D2R
-            
-                refinter = np.zeros_like(navresult)
-                refinter[:, 1] = navresult[:, 1]
-                for col in range(2, 11):
-                    refinter[:, col] = np.interp(navresult[:, 1], refresult[:, 1], refresult[:, col])
-            
-                # 计算误差
-                naverror = np.zeros_like(navresult)
-                naverror[:, 1] = navresult[:, 1]
-                naverror[:, 2:11] = navresult[:, 2:11] - refinter[:, 2:11]
-            
-                # 航向角误差处理
-                for i in range(len(naverror)):
-                    if naverror[i, 10] > 180:
-                        naverror[i, 10] -= 360
-                    if naverror[i, 10] < -180:
-                        naverror[i, 10] += 360
-            
-                # 位置误差转到第一个位置确定的n系
-                blh_station = navresult[0, 2:5]
-                rm, rn = radiusmn(blh_station[0])
-                for i in range(len(naverror)):
-                    naverror[i, 2:5] = drad2dm(rm, rn, blh_station, naverror[i, 2:5]).reshape(1, 3)
-            
-                return naverror
-            
-            
+
             if __name__ == '__main__':
-            
                 # 导航结果和导航误差
                 navresult_filepath = 'KF_GINS_Navresult.nav'
                 refresult_filepath = 'truth.nav'
@@ -351,44 +322,70 @@
                 plotNavresult(navresult_filepath)
                 # 计算并绘制导航误差
                 plotNavError(navresult_filepath, refresult_filepath)
-            
+
                 # 估计的IMU误差
                 imuerr_filepath = 'KF_GINS_IMU_ERR.txt'
                 plotIMUerror(imuerr_filepath)
-            
+
                 # 估计的导航状态标准差和IMU误差标准差
                 std_filepath = 'KF_GINS_STD.txt'
                 plotSTD(std_filepath)
-        
+            </code></pre>
+        </div>
 
-    </code></pre>        
-</section>
+        <div class="img-container">
+            <img src="Geoimages/kf_attitude.png" alt="Attitude">
+            <p>姿态角</p>
+            
+            <img src="Geoimages/kf_velocity.png" alt="Velocity">
+            <p>速度</p>
+            
+            <img src="Geoimages/kf_height.png" alt="Height">
+            <p>高度</p>
+            
+            <img src="Geoimages/kf_horizontal position.png" alt="Horizontal Position">
+            <p>水平位置</p>
+            
+            <img src="Geoimages/accel_bias.png" alt="Accelerometer Bias">
+            <p>加速度计偏差</p>
+            
+            <img src="Geoimages/accel_scale.png" alt="Accelerometer Scale">
+            <p>加速度计比例因子</p>
+            
+            <img src="Geoimages/gyro_bias.png" alt="Gyroscope Bias">
+            <p>陀螺仪偏差</p>
+            
+            <img src="Geoimages/gyro_scale.png" alt="Gyroscope Scale">
+            <p>陀螺仪比例因子</p>
+            
+            <img src="Geoimages/position_error.png" alt="Position Error">
+            <p>位置误差</p>
+            
+            <img src="Geoimages/kf_velocity_error.png" alt="Velocity Error">
+            <p>速度误差</p>
+            
+            <img src="Geoimages/kf_attitude_error.png" alt="Attitude Error">
+            <p>姿态误差</p>
+            
+            <img src="Geoimages/position_std.png" alt="Position STD">
+            <p>位置标准差</p>
+            
+            <img src="Geoimages/velocity_std.png" alt="Velocity STD">
+            <p>速度标准差</p>
+            
+            <img src="Geoimages/accelbias_std.png" alt="Accelerometer Bias STD">
+            <p>加速度计偏差标准差</p>
+            
+            <img src="Geoimages/gyroscale_std.png" alt="Gyroscope Scale STD">
+            <p>陀螺仪比例因子标准差</p>
+            
+            <img src="Geoimages/accelscale_std.png" alt="Accelerometer Scale STD">
+            <p>加速度计比例因子标准差</p>
+        </div>
+    </section>
 
-<!-- 图片容器 -->
-<div class="img-container">
-    <img src="images/kf_attitude.png" alt="attitude">
-    <img src="images/kf_velocity.png" alt="velocity">
-    <img src="images/kf_height.png" alt="height">
-    <img src="images/kf_horizontal position.png" alt="horizontal position">
-    <img src="images/accel_bias.png" alt="accel_bias">
-    <img src="images/accel_scale.png" alt="accel_scale">
-    <img src="images/gyro_bias.png" alt="gyro_bias">
-    <img src="images/gyro_scale.png" alt="gyro_scale">
-    <img src="images/position_error.png" alt="position_error">
-    <img src="images/kf_velocity_error.png" alt="velocity_error">
-    <img src="images/kf_attitude_error.png" alt="attitude_error">
-    <img src="images/position_std.png" alt="position_std">
-    <img src="images/velocity_std.png" alt="velocity_std">
-    <img src="images/accelbias_std.png" alt="accelbias_std">
-    <img src="images/gyroscale_std.png" alt="gyroscale_std">
-    <img src="images/accelscale_std.png" alt="accelscale_std">
-
-    <p>  </p>
-</div>
-
-
-<footer>
-    <p>&copy; 2024 KF-GINS-Plot Script Project</p>
-</footer>
+    <footer>
+        <p>&copy; 2024 XXXC-HangTime. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>

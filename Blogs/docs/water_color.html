@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>水色复习</title>
+    <link rel="stylesheet" href="../../style.css">
+    <style>
+        section {
+            height: auto;
+            margin: 2rem 5rem;
+        }
+
+        .doc-container {
+            background: rgb(250, 250, 250);
+            border-radius: 2rem;
+            border: rgb(163, 163, 163) 0.1rem solid;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 800px;
+            border: none;
+            border-radius: 1rem;
+        }
+
+        .download-button {
+            display: inline-block;
+            margin: 1rem 0;
+            padding: 0.8rem 1.5rem;
+            background: rgb(53, 53, 53);
+            color: white;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 300ms ease;
+        }
+
+        .download-button:hover {
+            background: rgb(0, 0, 0);
+            text-decoration: none;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin: 1rem 0;
+            padding: 0.8rem 1.5rem;
+            background: rgb(53, 53, 53);
+            color: white;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 300ms ease;
+        }
+
+        .back-button:hover {
+            background: rgb(0, 0, 0);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <nav id="desktop-nav">
+        <div class="logo">XXXC-HangTime</div>
+        <div>
+            <ul class="nav-links">
+                <li><a href="../../index.html#about">About</a></li>
+                <li><a href="../../index.html#favorites">Favorites</a></li>
+                <li><a href="../../index.html#projects">Projects</a></li>
+                <li><a href="../../index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <section>
+        <a href="../ucas.html" class="back-button">← 返回课程列表</a>
+        
+        <h1 class="title">水色复习</h1>
+        
+        <div class="doc-container">
+            <iframe src="../Dataset/水色复习.pdf" class="pdf-viewer"></iframe>
+            
+            <div style="text-align: center; margin-top: 1rem;">
+                <a href="../Dataset/水色复习.pdf" download class="download-button">下载PDF版本</a>
+                <a href="../Dataset/水色复习.docx" download class="download-button" style="margin-left: 1rem;">下载Word版本</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 XXXC-HangTime. All Rights Reserved.</p>
+    </footer>
+</body>
+</html> 

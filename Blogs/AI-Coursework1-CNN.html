@@ -4,50 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI_Coursework_CNN</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../style.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-            background-color: #f4f4f4;
-        }
-        header, footer {
-            text-align: center;
-            padding: 10px;
-            background: #333;
-            color: white;
-        }
-        pre {
-            background: #eee;
-            padding: 10px;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
-        code {
-            font-family: "Courier New", Courier, monospace;
-        }
-        .img-container {
-            text-align: center;
-            margin: 20px 0;
-        }
-        .img-container img {
-            max-width: 100%;
+        section {
             height: auto;
-            border-radius: 5px;
+            margin: 2rem 5rem;
+        }
+
+        .code-container {
+            background: rgb(250, 250, 250);
+            border-radius: 2rem;
+            border: rgb(163, 163, 163) 0.1rem solid;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        pre {
+            background: rgb(245, 245, 245);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            overflow-x: auto;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .img-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 2rem 0;
+        }
+
+        .img-container img {
+            max-width: 90%;
+            border-radius: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2, h3 {
+            color: rgb(53, 53, 53);
+            margin: 1.5rem 0;
+        }
+
+        p {
+            margin: 1rem 0;
+            line-height: 1.6;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin: 1rem 0;
+            padding: 0.8rem 1.5rem;
+            background: rgb(53, 53, 53);
+            color: white;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 300ms ease;
+        }
+
+        .back-button:hover {
+            background: rgb(0, 0, 0);
+            text-decoration: none;
+        }
+
+        footer {
+            margin-top: 2rem;
+            padding: 1rem;
+            text-align: center;
+            background: rgb(250, 250, 250);
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>AI_Coursework_CNN</h1>
-    </header>
+    <nav id="desktop-nav">
+        <div class="logo">XXXC-HangTime</div>
+        <div>
+            <ul class="nav-links">
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#favorites">Favorites</a></li>
+                <li><a href="../index.html#projects">Projects</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
     
     <section>
-        <h2>简介</h2>
-        <p>AI_Coursework_CNN,基于PyThon库CNN完成图像分类任务(CIFAR数据分类)</p>
-        <h3>PYTHON代码</h3>
-        <pre><code>
+        <a href="../index.html#projects" class="back-button">← 返回项目列表</a>
+        
+        <h1 class="title">AI_Coursework_CNN</h1>
+        
+        <div class="details-container">
+            <h2>简介</h2>
+            <p>AI_Coursework_CNN，基于PyThon库CNN完成图像分类任务(CIFAR数据分类)</p>
+        </div>
+
+        <div class="code-container">
+            <h3>PYTHON代码</h3>
+            <pre><code>
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -188,18 +243,17 @@ for epoch in range(epochs):
                 'Test acc': f'{accs / num:.3f}'
             })
 
-        </code></pre>        
+            </code></pre>
+        </div>
+        
+        <div class="img-container">
+            <img src="images/cifar10.png" alt="CIFAR-10数据集可视化">
+            <p>CIFAR-10数据集示例图像</p>
+        </div>
     </section>
-    
-    <!-- 图片容器 -->
-    <div class="img-container">
-        <img src="images/cifar10.png" alt="Plot cifar10">
-        <p>  </p>
-    </div>
-
 
     <footer>
-        <p>&copy; 2024 AI_Coursework_CNN Project</p>
+        <p>&copy; 2024 XXXC-HangTime. All Rights Reserved.</p>
     </footer>
 </body>
 </html>

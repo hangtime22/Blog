@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测绘Geodesy</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        section {
+            height: auto;
+            margin: 2rem 5rem;
+        }
+
+        .blog-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .blog-card {
+            background: rgb(250, 250, 250);
+            border-radius: 2rem;
+            border: rgb(163, 163, 163) 0.1rem solid;
+            padding: 2rem;
+            transition: all 300ms ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-title {
+            color: rgb(53, 53, 53);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-description {
+            color: rgb(85, 85, 85);
+            margin-bottom: 1.5rem;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin: 1rem 0;
+            padding: 0.8rem 1.5rem;
+            background: rgb(53, 53, 53);
+            color: white;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 300ms ease;
+        }
+
+        .back-button:hover {
+            background: rgb(0, 0, 0);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <nav id="desktop-nav">
+        <div class="logo">XXXC-HangTime</div>
+        <div>
+            <ul class="nav-links">
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#favorites">Favorites</a></li>
+                <li><a href="../index.html#projects">Projects</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <section>
+        <a href="../index.html#projects" class="back-button">← 返回项目列表</a>
+        
+        <h1 class="title">测绘Geodesy</h1>
+        
+        <div class="blog-list">
+            <div class="blog-card">
+                <h2 class="blog-title">
+                    <a href="KF-GINS-Plot.html">KF-GINS 绘图扩展</a>
+                </h2>
+                <p class="blog-description">KF-GINS导航结果可视化工具，用于绘制导航解算结果、IMU误差估计和状态标准差等内容。包含完整的Python代码实现。</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 XXXC-HangTime. All Rights Reserved.</p>
+    </footer>
+</body>
+</html> 

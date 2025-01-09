@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国科学院大学海洋学院</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        section {
+            height: auto;
+            margin: 2rem 5rem;
+        }
+
+        .course-section {
+            margin: 3rem 0;
+        }
+
+        .course-title {
+            color: rgb(53, 53, 53);
+            font-size: 2rem;
+            margin: 2rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgb(163, 163, 163);
+        }
+
+        .blog-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .blog-card {
+            background: rgb(250, 250, 250);
+            border-radius: 2rem;
+            border: rgb(163, 163, 163) 0.1rem solid;
+            padding: 2rem;
+            transition: all 300ms ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-title {
+            color: rgb(53, 53, 53);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-description {
+            color: rgb(85, 85, 85);
+            margin-bottom: 1.5rem;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin: 1rem 0;
+            padding: 0.8rem 1.5rem;
+            background: rgb(53, 53, 53);
+            color: white;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 300ms ease;
+        }
+
+        .back-button:hover {
+            background: rgb(0, 0, 0);
+            text-decoration: none;
+        }
+
+        .empty-notice {
+            text-align: center;
+            color: rgb(85, 85, 85);
+            font-style: italic;
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <nav id="desktop-nav">
+        <div class="logo">XXXC-HangTime</div>
+        <div>
+            <ul class="nav-links">
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#favorites">Favorites</a></li>
+                <li><a href="../index.html#projects">Projects</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <section>
+        <a href="../index.html#projects" class="back-button">← 返回项目列表</a>
+        
+        <h1 class="title">中国科学院大学海洋学院</h1>
+        
+        <!-- 海洋科学概论 -->
+        <div class="course-section">
+            <h2 class="course-title">海洋科学概论（物海与地质）</h2>
+            <div class="blog-list">
+                <div class="blog-card">
+                    <h2 class="blog-title">
+                        <a href="docs/physical_oceanography.html">2024物海重点题</a>
+                    </h2>
+                    <p class="blog-description">2024年物理海洋学重点题目整理与解析。</p>
+                </div>
+                
+                <div class="blog-card">
+                    <h2 class="blog-title">
+                        <a href="docs/marine_geology.html">海洋科学概论地质</a>
+                    </h2>
+                    <p class="blog-description">2024年海洋地质学课程重点内容。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 卫星海洋遥感 -->
+        <div class="course-section">
+            <h2 class="course-title">卫星海洋遥感</h2>
+            <div class="blog-list">
+                <div class="blog-card">
+                    <h2 class="blog-title">
+                        <a href="docs/water_color.html">水色复习</a>
+                    </h2>
+                    <p class="blog-description">卫星海洋遥感水色部分复习资料。</p>
+                </div>
+                <div class="blog-card">
+                    <h2 class="blog-title">
+                        <a href="docs/directory_review.html">复习材料2</a>
+                    </h2>
+                    <p class="blog-description">卫星海洋遥感复习资料2。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 海洋水文资料处理与分析方法 -->
+        <div class="course-section">
+            <h2 class="course-title">海洋水文资料处理与分析方法</h2>
+            <div class="blog-list">
+                <div class="blog-card">
+                    <h2 class="blog-title">
+                        <a href="sst_analysis.html">海表温度数据处理与EOF分析</a>
+                    </h2>
+                    <p class="blog-description">读取海表温度数据，计算经验正交模态（EOF），并可视化海表温度的空间分布和模态。</p>
+                </div>
+
+                <div class="blog-card">
+                    <h2 class="blog-title">
+                        <a href="SST_Lading.html">超前滞后分析</a>
+                    </h2>
+                    <p class="blog-description">对Nino-3.4与西太平洋区域的海表温度(SST)异常值进行超前滞后相关分析。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 海洋大数据与数字海洋导论 -->
+        <div class="course-section">
+            <h2 class="course-title">海洋大数据与数字海洋导论</h2>
+            <div class="blog-list">
+                <div class="blog-card">
+                    <h2 class="blog-title">
+                        <a href="AI-Coursework1-CNN.html">AI_Coursework_CNN</a>
+                    </h2>
+                    <p class="blog-description">基于PyThon库CNN完成图像分类任务(CIFAR数据分类)。</p>
+                </div>
+                <div class="blog-card">
+                    <h2 class="blog-title">
+                        <a href="docs/big_data.html">大数据复习</a>
+                    </h2>
+                    <p class="blog-description">海洋大数据与数字海洋导论课程复习资料。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 地球系统科学导论 -->
+        <div class="course-section">
+            <h2 class="course-title">地球系统科学导论</h2>
+            <div class="blog-list">
+                <div class="blog-card">
+                    <h2 class="blog-title">
+                        <a href="docs/dynamics.html">动力学相关题目</a>
+                    </h2>
+                    <p class="blog-description">地球系统科学导论动力学题目整理。</p>
+                </div>
+                <div class="blog-card">
+                    <h2 class="blog-title">
+                        <a href="docs/earth_science.html">地科导复习</a>
+                    </h2>
+                    <p class="blog-description">地球系统科学导论综合复习资料。</p>
+                </div>
+                <div class="blog-card">
+                    <h2 class="blog-title">
+                        <a href="docs/earth_science_review.html">2024-2025《地球系统科学导论》复习题</a>
+                    </h2>
+                    <p class="blog-description">最新地球系统科学导论复习题汇总。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 海洋装备研发导论 -->
+        <div class="course-section">
+            <h2 class="course-title">海洋装备研发导论</h2>
+            <div class="blog-list">
+                <div class="blog-card">
+                    <h2 class="blog-title">
+                        <a href="docs/marine_equipment.html">海洋装备复习</a>
+                    </h2>
+                    <p class="blog-description">海洋装备研发导论课程复习资料。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 XXXC-HangTime. All Rights Reserved.</p>
+    </footer>
+</body>
+</html> 
